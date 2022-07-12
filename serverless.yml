@@ -1,0 +1,27 @@
+service: lambda-nestjs
+
+frameworkVersion: "3"
+
+plugins:
+  - "serverless-plugin-typescript"
+  - "serverless-plugin-optimize"
+  - "serverless-offline"
+  - "serverless-dotenv-plugin"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          method: GET
+          path: /hello-world
+  main:
+    handler: ./src/handler.handler
+    events:
+      - http:
+          method: Any
+          path: /{any+}
