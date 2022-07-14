@@ -1,13 +1,14 @@
-import { IsEmail, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 
-export class LoginDto {
+import { IsEmail, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
+import { LoginDto } from './login.dto';
+
+export class ConfirmDto extends LoginDto {
 
     @IsNotEmpty()
-    @IsEmail()
     @MaxLength(30)
-    username: string;
+    name: string;
 
     @IsNotEmpty()
     @MaxLength(130)
-    password: string;
+    newPassword: string;
 }

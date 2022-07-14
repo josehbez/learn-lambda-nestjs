@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, ValidationPipe } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
+import { ConfirmDto } from './dtos/confirm.dto';
 import { LoginDto } from './dtos/login.dto';
 import { TokenDto } from './dtos/token.dto';
 import { LoginService } from './login.service';
@@ -11,9 +12,14 @@ export class LoginController {
 
     @Post()
     async login(@Body(new ValidationPipe({ transform: true })) loginDto: LoginDto):
-        Promise<TokenDto> {        
+        Promise<TokenDto> {
         return this.loginService.login(loginDto)
-
     }
 
+    @Put()
+    async confirm(@Body(new ValidationPipe({ transform: true })) confirmDto: ConfirmDto):
+        Promise<TokenDto> {
+        return this.loginService.confirm(confirmDto)
+
+    }
 }

@@ -13,12 +13,32 @@ provider:
   runtime: nodejs14.x
 
 functions:
+  authorizerFunction:
+    handler: ./src/common/authorizer.handler
+
+  user:
+    handler: ./src/profile/profile.handler.handler
+    events:
+      - http:
+          method: GET
+          path: /user/profile
+          cors: true
+          #  origins: 
+          #   - http://localhost:300
+          authorizer:
+            name: authorizerFunction
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+
+
   hello:
     handler: handler.hello
     events:
       - http:
           method: GET
           path: /hello-world
+
   main:
     handler: ./src/handler.handler
     events:
